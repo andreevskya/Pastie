@@ -1,0 +1,180 @@
+<#include "base.html">
+<#import "spring.ftl" as spring />
+<#macro stylesheet>
+<style type="text/css">
+    body, html {
+        height: 100%;
+    }
+    .paste-form {
+        padding-right: 0px;
+        height: 520px;
+    }
+    .header-bar {
+        margin-bottom: 5px;
+    }
+</style>
+</#macro>
+<#macro content>
+<nav class="navbar navbar-inverse header-bar">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/pastie">Pastie</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li><a href="#">Latest</a></li>
+            <li><a href="#">Most Popular</a></li>
+            <li><a href="#">All</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="#">About</a></li>
+        </ul>
+    </div>
+</nav>
+<div class="container-fluid">
+    <div class="row h100p">
+        <form action="/pastie" method="POST">
+            <div class="col-md-9 paste-form">
+                <div  class="form-inline">
+                    <div class="form-group">
+                        <label for="name">Name:</label>
+                        <@spring.bind path="form.name" />
+                        <input type="text" class="form-control" placeholder="Name of your paste (optional)" id="name" name="name" value="${spring.status.value!''}"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="syntax">Syntax:</label>
+                        <@spring.bind path="form.syntax"/>
+                        <select name="${spring.status.expression}" class="form-control">
+                        <#list syntaxList>
+                            <#items as value>
+                            <option value="${value}"<@spring.checkSelected value/>>${value.getName()}</option>
+                            </#items>
+                        </#list>
+                       </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="expiration">Expiration:</label>
+                         <@spring.bind path="form.expiration" />
+                        <select class="form-control" name="${spring.status.expression}">
+                            <#list expirationList>
+                            <#items as expiration>
+                            <option value="${expiration}"<@spring.checkSelected expiration/>>${expiration.getName()}</option>
+                            </#items>
+                            </#list>
+                        </select>
+                    </div>
+                    <div class="checkbox">
+                        <@spring.bind path="form.privatePaste" />
+                        <label><input type="checkbox" name="${spring.status.expression}" <#if spring.status.value == "true">checked="checked"</#if>/> Private</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Paste</button>
+                </div>
+                <@spring.bind path="form.paste" />
+                <#if spring.status.error >
+                <div class="alert alert-danger" style="margin-top: 10px">
+                    Hey! This field is required!
+                </div>
+                </#if>
+                <textarea class="form-control" style="height: 100%; margin-top: 5px" placeholder="Paste your code here" id="paste" name="paste">${spring.status.value!""}</textarea>
+            </div>
+        </form>
+        <div class="col-md-3">
+            <div class="panel panel-default">
+                <div class="panel-heading">Latest 10 pastes</div>
+                <div class="panel-body">
+                    <div class="media">
+                        <div class="media-body">
+                            <h5 class="media-heading">
+                                <a href="#">JS Code Snippet</a>
+                                <small><i>Posted on 30.09.2016 00:54:56</i></small>
+                            </h5>
+                            <p><small>JavaScript Viewed: 255 times</small></p>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-body">
+                            <h5 class="media-heading">
+                                <a href="#">A very long long long long paste name</a>
+                                <small><i>Posted on 30.09.2016 00:54:56</i></small>
+                            </h5>
+                            <p><small>JavaScript Viewed: 255 times</small></p>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-body">
+                            <h5 class="media-heading">
+                                <a href="#">A very long long long long paste name</a>
+                                <small><i>Posted on 30.09.2016 00:54:56</i></small>
+                            </h5>
+                            <p><small>JavaScript Viewed: 255 times</small></p>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-body">
+                            <h5 class="media-heading">
+                                <a href="#">A very long long long long paste name</a>
+                                <small><i>Posted on 30.09.2016 00:54:56</i></small>
+                            </h5>
+                            <p><small>JavaScript Viewed: 255 times</small></p>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-body">
+                            <h5 class="media-heading">
+                                <a href="#">A very long long long long paste name</a>
+                                <small><i>Posted on 30.09.2016 00:54:56</i></small>
+                            </h5>
+                            <p><small>JavaScript Viewed: 255 times</small></p>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-body">
+                            <h5 class="media-heading">
+                                <a href="#">A very long long long long paste name</a>
+                                <small><i>Posted on 30.09.2016 00:54:56</i></small>
+                            </h5>
+                            <p><small>JavaScript Viewed: 255 times</small></p>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-body">
+                            <h5 class="media-heading">
+                                <a href="#">A very long long long long paste name</a>
+                                <small><i>Posted on 30.09.2016 00:54:56</i></small>
+                            </h5>
+                            <p><small>JavaScript Viewed: 255 times</small></p>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-body">
+                            <h5 class="media-heading">
+                                <a href="#">A very long long long long paste name</a>
+                                <small><i>Posted on 30.09.2016 00:54:56</i></small>
+                            </h5>
+                            <p><small>JavaScript Viewed: 255 times</small></p>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-body">
+                            <h5 class="media-heading">
+                                <a href="#">A very long long long long paste name</a>
+                                <small><i>Posted on 30.09.2016 00:54:56</i></small>
+                            </h5>
+                            <p><small>JavaScript Viewed: 255 times</small></p>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-body">
+                            <h5 class="media-heading">
+                                <a href="#">A very long long long long paste name</a>
+                                <small><i>Posted on 30.09.2016 00:54:56</i></small>
+                            </h5>
+                            <p><small>JavaScript Viewed: 255 times</small></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</#macro>
+<@display_page/>

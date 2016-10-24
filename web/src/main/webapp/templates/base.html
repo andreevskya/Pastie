@@ -1,0 +1,25 @@
+<#macro display_page>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title><@page_title/></title>
+        <link href="/pastie/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <@stylesheet/>
+    </head>
+    <body>
+        <@content/>
+        <script src="/pastie/static/js/jquery-3.1.0.min.js"></script>
+        <script src="/pastie/static/bootstrap/js/bootstrap.min.js"></script>
+    </body>
+</html>
+</#macro>
+
+<#macro page_title>
+Pastie
+</#macro>
+
+<#macro stylesheet></#macro>
+<#macro content></#macro>
