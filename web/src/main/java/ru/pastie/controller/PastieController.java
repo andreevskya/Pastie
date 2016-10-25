@@ -82,6 +82,7 @@ public class PastieController {
             markAsViewed(request, paste.getId());
         }
         
+        model.addAttribute("paste", paste);
         return "paste";
     }
     

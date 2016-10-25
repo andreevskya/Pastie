@@ -1,4 +1,41 @@
 <#include "base.html">
 
-
+<#macro page_title>Pastie | ${ paste.name!'Untitled'?html } </#macro>
+<#macro stylesheet>
+<style type="text/css">
+    body, html {
+        height: 100%;
+    }
+    .header-bar {
+        margin-bottom: 10px;
+    }
+</style>
+</#macro>
+<#macro content>
+<nav class="navbar navbar-inverse header-bar">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/pastie">Pastie</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li><a href="#">Latest</a></li>
+            <li><a href="#">Most Popular</a></li>
+            <li><a href="#">All</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="#">About</a></li>
+        </ul>
+    </div>
+</nav>
+<div class="container-fluid">
+	<div class="well well-sm"><strong>${paste.name!'Untitled paste'?html}</strong></div>
+	
+	<div class="row">
+		<div class="col-md-12">
+			Posted at ${paste.creationDate?string["dd.MM.yyyy HH:mm:ss"]}|${paste.lexer.getName()}|Viewed: ${paste.numViews} times|<a href="#">raw</a>
+		</div>
+	</div>
+	<textarea class="form-control" style="height: 540px;" readonly="true">${paste.paste?html}</textarea>	
+</div>
+</#macro>
 <@display_page/>
