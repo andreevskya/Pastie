@@ -41,23 +41,12 @@
                             <artifactId>web</artifactId>
                             <contextRoot>/pastie</contextRoot>
                         </webModule>
-                        <ejbModule>
-                            <groupId>ru.pastie</groupId>
-                            <artifactId>ejb</artifactId>
-                            <bundleFileName>ejb.jar</bundleFileName>
-                        </ejbModule>
                     </modules>
                 </configuration>
             </plugin>
         </plugins>
     </build>
     <dependencies>
-        <dependency>
-            <groupId>ru.pastie</groupId>
-            <artifactId>ejb</artifactId>
-            <version>1.0</version>
-            <type>ejb</type>
-        </dependency>
         <dependency>
             <groupId>ru.pastie</groupId>
             <artifactId>web</artifactId>
