@@ -2,6 +2,7 @@ package ru.pastie.om;
 
 import java.io.Serializable;
 import java.util.Date;
+import org.apache.commons.lang3.StringUtils;
 import org.hibernate.validator.constraints.NotBlank;
 
 public class PasteForm implements Serializable {
@@ -61,7 +62,7 @@ public class PasteForm implements Serializable {
         p.setCreationDate(new Date());
         p.setExpirationDate(this.expiration.getExpirationDate(p.getCreationDate()));
         p.setLexer(this.syntax);
-        p.setName(this.name);
+        p.setName(StringUtils.isBlank(this.name) ? null : this.name);
         p.setNumViews(0);
         p.setPrivatePaste(this.privatePaste);
         p.setPaste(this.paste);

@@ -1,5 +1,8 @@
 package ru.pastie.repository;
 
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
 import java.util.Random;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -60,5 +63,15 @@ public class PasteRepositoryImpl implements PasteRepository{
             sb.append(alphabet.charAt(rnd.nextInt(alphabet.length())));
         }
         return sb.toString();
+    }
+
+    @Override
+    @Transactional
+    public List<Paste> getLatest(int count) {
+        return em.createQuery(
+                "SELECT p FROM Paste p WHERE p.privatePaste = FALSE AND (p.expirationDate IS NULL OR :now < p.expirationDate) ORDER BY p.creationDate DESC")
+                .setParameter("now", new Date())
+                .setMaxResults(count)
+                .getResultList();
     }
 }

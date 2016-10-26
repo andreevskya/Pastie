@@ -79,98 +79,29 @@
         </form>
         <div class="col-md-3">
             <div class="panel panel-default">
-                <div class="panel-heading">Latest 10 pastes</div>
+                <div class="panel-heading">
+                    <#if latest?size gt 0>
+                    Latest ${ latest?size } pasties
+                    <#else>
+                    Latest pasties
+                    </#if>
+                </div>
                 <div class="panel-body">
+                    <#if latest?size gt 0>
+                    <#list latest as paste>
                     <div class="media">
                         <div class="media-body">
                             <h5 class="media-heading">
-                                <a href="#">JS Code Snippet</a>
-                                <small><i>Posted on 30.09.2016 00:54:56</i></small>
+                                <a href="/pastie/paste/${paste.id}">${(paste.name)!"Untitled paste"?html}</a>
+                                <small><i>Posted on ${paste.creationDate?string["dd.MM.yyyy HH:mm:ss"]}</i></small>
                             </h5>
-                            <p><small>JavaScript Viewed: 255 times</small></p>
+                            <p><small>${paste.lexer.getName()} Viewed: ${paste.numViews} times</small></p>
                         </div>
                     </div>
-                    <div class="media">
-                        <div class="media-body">
-                            <h5 class="media-heading">
-                                <a href="#">A very long long long long paste name</a>
-                                <small><i>Posted on 30.09.2016 00:54:56</i></small>
-                            </h5>
-                            <p><small>JavaScript Viewed: 255 times</small></p>
-                        </div>
-                    </div>
-                    <div class="media">
-                        <div class="media-body">
-                            <h5 class="media-heading">
-                                <a href="#">A very long long long long paste name</a>
-                                <small><i>Posted on 30.09.2016 00:54:56</i></small>
-                            </h5>
-                            <p><small>JavaScript Viewed: 255 times</small></p>
-                        </div>
-                    </div>
-                    <div class="media">
-                        <div class="media-body">
-                            <h5 class="media-heading">
-                                <a href="#">A very long long long long paste name</a>
-                                <small><i>Posted on 30.09.2016 00:54:56</i></small>
-                            </h5>
-                            <p><small>JavaScript Viewed: 255 times</small></p>
-                        </div>
-                    </div>
-                    <div class="media">
-                        <div class="media-body">
-                            <h5 class="media-heading">
-                                <a href="#">A very long long long long paste name</a>
-                                <small><i>Posted on 30.09.2016 00:54:56</i></small>
-                            </h5>
-                            <p><small>JavaScript Viewed: 255 times</small></p>
-                        </div>
-                    </div>
-                    <div class="media">
-                        <div class="media-body">
-                            <h5 class="media-heading">
-                                <a href="#">A very long long long long paste name</a>
-                                <small><i>Posted on 30.09.2016 00:54:56</i></small>
-                            </h5>
-                            <p><small>JavaScript Viewed: 255 times</small></p>
-                        </div>
-                    </div>
-                    <div class="media">
-                        <div class="media-body">
-                            <h5 class="media-heading">
-                                <a href="#">A very long long long long paste name</a>
-                                <small><i>Posted on 30.09.2016 00:54:56</i></small>
-                            </h5>
-                            <p><small>JavaScript Viewed: 255 times</small></p>
-                        </div>
-                    </div>
-                    <div class="media">
-                        <div class="media-body">
-                            <h5 class="media-heading">
-                                <a href="#">A very long long long long paste name</a>
-                                <small><i>Posted on 30.09.2016 00:54:56</i></small>
-                            </h5>
-                            <p><small>JavaScript Viewed: 255 times</small></p>
-                        </div>
-                    </div>
-                    <div class="media">
-                        <div class="media-body">
-                            <h5 class="media-heading">
-                                <a href="#">A very long long long long paste name</a>
-                                <small><i>Posted on 30.09.2016 00:54:56</i></small>
-                            </h5>
-                            <p><small>JavaScript Viewed: 255 times</small></p>
-                        </div>
-                    </div>
-                    <div class="media">
-                        <div class="media-body">
-                            <h5 class="media-heading">
-                                <a href="#">A very long long long long paste name</a>
-                                <small><i>Posted on 30.09.2016 00:54:56</i></small>
-                            </h5>
-                            <p><small>JavaScript Viewed: 255 times</small></p>
-                        </div>
-                    </div>
+                    </#list>
+                    <#else>
+                    There are no new pasties.
+                    </#if>
                 </div>
             </div>
         </div>

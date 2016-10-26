@@ -28,11 +28,11 @@
     </div>
 </nav>
 <div class="container-fluid">
-	<div class="well well-sm"><strong>${paste.name!'Untitled paste'?html}</strong></div>
+	<div class="well well-sm"><strong>${(paste.name)!"Untitled paste"?html}</strong></div>
 	
 	<div class="row">
 		<div class="col-md-12">
-			Posted at ${paste.creationDate?string["dd.MM.yyyy HH:mm:ss"]}|${paste.lexer.getName()}|Viewed: ${paste.numViews} times|<a href="#">raw</a>
+			Posted on ${paste.creationDate?string["dd.MM.yyyy HH:mm:ss"]}|${paste.lexer.getName()}|Viewed: ${paste.numViews} times|<a href="#">raw</a>
 		</div>
 	</div>
 	<textarea class="form-control" style="height: 540px;" readonly="true">${paste.paste?html}</textarea>	

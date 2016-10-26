@@ -38,6 +38,9 @@ public class PastieController {
     }
     
     private Model fillIndexModel(Model model) {
+        List<Paste> latest = service.getLatest();
+        model.addAttribute("maxLatest", service.getMaxLatestPastes());
+        model.addAttribute("latest", latest);
         model.addAttribute("expirationList", Expiration.values());
         model.addAttribute("syntaxList", Lexer.values());
         return model;
