@@ -31,6 +31,11 @@ public class PasteServiceImpl implements PasteService {
     }
 
     @Override
+    public List<Paste> getTop() {
+        return repo.getTop(config.getMaxTopPasties());
+    }
+
+    @Override
     public int getMaxLatestPastes() {
         return config.getMaxLatestPasties();
     }

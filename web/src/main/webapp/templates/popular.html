@@ -1,0 +1,37 @@
+<#include "base.html">
+
+<#macro page_title>Top Pasties</#macro>
+
+<#macro content>
+<#if top?size gt 0>
+<h2>Top ${top?size} pasties</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th></th>
+            <th>Name</th>
+            <th>Posted on</th>
+            <th>Language</th>
+            <th>Views</th>
+            <th>Paste</th>
+        </tr>
+    </thead>
+    <tbody>
+        <#list top as paste>
+        <tr>
+            <td>${paste?counter}</td>
+            <td><a href="/pastie/paste/${paste.id}">${(paste.name)!"Untitled paste"?html}</a></td>
+            <td>${paste.creationDate?string["dd.MM.yyyy HH:mm:ss"]}</td>
+            <td>${paste.lexer.getName()}</td>
+            <td>${paste.numViews}</td>
+            <td>${paste.paste[0..*42]?trim?html}...</td>
+        </tr>
+        </#list>
+    </tbody>
+</table>
+<#else>
+<h2>No statistics yet</h2>
+</#if>
+</#macro>
+
+<@display_page/>

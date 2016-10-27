@@ -88,7 +88,34 @@ public class PastieController {
         model.addAttribute("paste", paste);
         return "paste";
     }
-    
+
+    @RequestMapping(value="/latest", method=RequestMethod.GET)
+    public String latest(Model model) {
+        List<Paste> latest = service.getLatest();
+        model.addAttribute("nav_latest", true);
+        model.addAttribute("latest", latest);
+        return "latest";
+    }
+
+    @RequestMapping(value="/top", method=RequestMethod.GET)
+    public String top(Model model) {
+        List<Paste> top = service.getTop();
+        model.addAttribute("nav_top", true);
+        model.addAttribute("top", top);
+        return "popular";
+    }
+
+    @RequestMapping(value="/all", method=RequestMethod.GET)
+    public String all(Model model) {
+        model.addAttribute("nav_all");
+        return "all";
+    }
+
+    @RequestMapping(value="/about", method=RequestMethod.GET)
+    public String about(Model model) {
+        model.addAttribute("nav_about", true);
+        return "about";
+    }
     
     private void markAsViewed(HttpServletRequest request, String id) {
         HttpSession session = request.getSession(true);

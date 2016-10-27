@@ -10,6 +10,7 @@
         <@stylesheet/>
     </head>
     <body>
+        <@titlebar/>
         <@content/>
         <script src="/pastie/static/js/jquery-3.1.0.min.js"></script>
         <script src="/pastie/static/bootstrap/js/bootstrap.min.js"></script>
@@ -22,4 +23,21 @@ Pastie
 </#macro>
 
 <#macro stylesheet></#macro>
+<#macro titlebar>
+<nav class="navbar navbar-inverse header-bar">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/pastie">Pastie</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li <#if nav_latest??>class="active"</#if>><a href="/pastie/latest">Latest</a></li>
+            <li <#if nav_top??>class="active"</#if>><a href="/pastie/top">Most Popular</a></li>
+            <li <#if nav_all??>class="active"</#if>><a href="/pastie/all">All</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li <#if nav_about??>class="active"</#if>><a href="/pastie/about">About</a></li>
+        </ul>
+    </div>
+</nav>
+</#macro>
 <#macro content></#macro>

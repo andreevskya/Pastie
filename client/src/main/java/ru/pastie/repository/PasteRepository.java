@@ -9,4 +9,5 @@ public interface PasteRepository {
     Paste findOne(String id);
     Paste save(Paste paste);
     List<Paste> getLatest(int count);
+    List<Paste> getTop(int count);
 }

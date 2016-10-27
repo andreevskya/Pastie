@@ -1,6 +1,5 @@
 package ru.pastie.repository;
 
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
@@ -70,6 +69,17 @@ public class PasteRepositoryImpl implements PasteRepository{
     public List<Paste> getLatest(int count) {
         return em.createQuery(
                 "SELECT p FROM Paste p WHERE p.privatePaste = FALSE AND (p.expirationDate IS NULL OR :now < p.expirationDate) ORDER BY p.creationDate DESC")
+                .setParameter("now", new Date())
+                .setMaxResults(count)
+                .getResultList();
+    }
+
+
+    @Override
+    @Transactional
+    public List<Paste> getTop(int count) {
+        return em.createQuery(
+                "SELECT p FROM Paste p WHERE p.privatePaste = FALSE AND p.numViews > 0 AND (p.expirationDate IS NULL OR :now < p.expirationDate) ORDER BY p.numViews DESC")
                 .setParameter("now", new Date())
                 .setMaxResults(count)
                 .getResultList();

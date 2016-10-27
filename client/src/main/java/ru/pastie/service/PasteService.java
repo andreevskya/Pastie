@@ -9,4 +9,5 @@ public interface PasteService {
     Paste findOne(String id);
     int getMaxLatestPastes();
     List<Paste> getLatest();
+    List<Paste> getTop();
 }

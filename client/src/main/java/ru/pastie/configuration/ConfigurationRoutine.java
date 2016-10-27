@@ -9,4 +9,8 @@ public class ConfigurationRoutine {
     public int getMaxLatestPasties() {
         return 10;
     }
+
+    public int getMaxTopPasties() {
+        return 5;
+    }
 }
