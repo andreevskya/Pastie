@@ -84,4 +84,23 @@ public class PasteRepositoryImpl implements PasteRepository{
                 .setMaxResults(count)
                 .getResultList();
     }
+
+    @Override
+    @Transactional
+    public int countPublicAndNotExpired() {
+        Long count = (Long)em.createQuery("SELECT COUNT(p) FROM Paste p WHERE p.privatePaste = FALSE AND (p.expirationDate IS NULL OR :now < p.expirationDate)")
+                .setParameter("now", new Date())
+                .getSingleResult();
+        return count.intValue();
+    }
+
+    @Override
+    @Transactional
+    public List<Paste> listPublicAndNotExpired(int offset, int count) {
+        return em.createQuery("SELECT p FROM Paste p WHERE p.privatePaste = FALSE AND (p.expirationDate IS NULL OR :now < p.expirationDate)  ORDER BY p.creationDate ASC")
+                .setParameter("now", new Date())
+                .setFirstResult(offset)
+                .setMaxResults(count)
+                .getResultList();
+    }
 }

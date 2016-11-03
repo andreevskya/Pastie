@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import ru.pastie.exceptions.NoSuchPasteException;
 import ru.pastie.om.Expiration;
@@ -72,21 +73,18 @@ public class PastieController {
     
     @RequestMapping(value="/paste/{id}", method=RequestMethod.GET)
     public String viewPaste(@PathVariable("id") String id, Model model, HttpServletRequest request, HttpServletResponse response) {
-        Paste paste = service.findOne(id);
-        if( paste == null) {
-            throw new NoSuchPasteException();
-        }
-        if( paste.isExpired()) {
-            throw new NoSuchPasteException();
-        }
-        if(!hasViewed(request, paste.getId())) {
-            paste.setNumViews(paste.getNumViews() + 1);
-            service.save(paste);
-            markAsViewed(request, paste.getId());
-        }
-        
+        Paste paste = getPaste(id, request, response);
         model.addAttribute("paste", paste);
         return "paste";
+    }
+
+    @RequestMapping(value="/raw/{id}", method=RequestMethod.GET)
+    @ResponseBody
+    public String raw(@PathVariable("id") String id, HttpServletRequest request, HttpServletResponse response) {
+        Paste p = getPaste(id, request, response);
+        response.setContentType("text/plain");
+        response.setCharacterEncoding("UTF-8");
+        return p.getPaste();
     }
 
     @RequestMapping(value="/latest", method=RequestMethod.GET)
@@ -107,7 +105,18 @@ public class PastieController {
 
     @RequestMapping(value="/all", method=RequestMethod.GET)
     public String all(Model model) {
+        return all(1, model);
+    }
+
+    @RequestMapping(value="/all/{page}", method=RequestMethod.GET)
+    public String all(@PathVariable("page")int page, Model model) {
+        if(page <= 0)
+            page = 1;
+        int pages = service.countPublicAndNotExpiredPages();
+        List<Paste> pageContent = service.listPublicAndNotExpired(page);
         model.addAttribute("nav_all");
+        model.addAttribute("numPages", pages);
+        model.addAttribute("page", pageContent);
         return "all";
     }
 
@@ -117,6 +126,22 @@ public class PastieController {
         return "about";
     }
     
+    private Paste getPaste(String id, HttpServletRequest request, HttpServletResponse response) throws NoSuchPasteException {
+        Paste paste = service.findOne(id);
+        if( paste == null) {
+            throw new NoSuchPasteException();
+        }
+        if( paste.isExpired()) {
+            throw new NoSuchPasteException();
+        }
+        if(!hasViewed(request, paste.getId())) {
+            paste.setNumViews(paste.getNumViews() + 1);
+            service.save(paste);
+            markAsViewed(request, paste.getId());
+        }
+        return paste;
+    }
+
     private void markAsViewed(HttpServletRequest request, String id) {
         HttpSession session = request.getSession(true);
         List<String> viewedPasties = (List<String>)session.getAttribute("viewed");

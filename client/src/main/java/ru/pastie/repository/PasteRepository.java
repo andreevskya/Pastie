@@ -10,4 +10,6 @@ public interface PasteRepository {
     Paste save(Paste paste);
     List<Paste> getLatest(int count);
     List<Paste> getTop(int count);
+    int countPublicAndNotExpired();
+    List<Paste> listPublicAndNotExpired(int offset, int count);
 }

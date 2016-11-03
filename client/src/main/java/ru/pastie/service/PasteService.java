@@ -10,4 +10,6 @@ public interface PasteService {
     int getMaxLatestPastes();
     List<Paste> getLatest();
     List<Paste> getTop();
+    int countPublicAndNotExpiredPages();
+    List<Paste> listPublicAndNotExpired(int page);
 }

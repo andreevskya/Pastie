@@ -13,4 +13,8 @@ public class ConfigurationRoutine {
     public int getMaxTopPasties() {
         return 5;
     }
+
+    public int getPageSize() {
+        return 30;
+    }
 }

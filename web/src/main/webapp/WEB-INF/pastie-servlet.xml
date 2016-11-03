@@ -20,7 +20,7 @@
     <jpa:repositories base-package="ru.pastie.repository"/>
     
     <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean" autowire="byName">
-         <property name="persistenceUnitName" value="PastieDS" />
+        <property name="persistenceUnitName" value="PastieDS" />
     </bean>
     <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
         <property name="entityManagerFactory" ref="entityManagerFactory" />
@@ -32,19 +32,23 @@
 
     <bean id="viewResolver"
           class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
-        <property name="viewClass"
-                  value="org.springframework.web.servlet.view.freemarker.FreeMarkerView" />
+        <property name="viewClass" value="org.springframework.web.servlet.view.freemarker.FreeMarkerView" />
         <property name="cache" value="true"/>
         <property name="prefix" value=""/>
         <property name="suffix" value=".html"/>
+        <property name="contentType" value="text/html;charset=UTF-8" />
     </bean>
     
-    <bean id="validator"
-          class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"/>
+    <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"/>
     
     <bean id="freemarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
         <property name="templateLoaderPath">
             <value>/templates</value>
+        </property>
+        <property name="freemarkerSettings">
+            <props>
+                <prop key="default_encoding">UTF-8</prop>
+            </props>
         </property>
     </bean>
 </beans>

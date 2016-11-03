@@ -39,4 +39,17 @@ public class PasteServiceImpl implements PasteService {
     public int getMaxLatestPastes() {
         return config.getMaxLatestPasties();
     }
+
+    @Override
+    public int countPublicAndNotExpiredPages() {
+        return 1 + repo.countPublicAndNotExpired() / config.getPageSize();
+    }
+
+    @Override
+    public List<Paste> listPublicAndNotExpired(int page) {
+        if(page <= 0)
+            page = 1;
+        int offset = (page - 1) * config.getPageSize();
+        return repo.listPublicAndNotExpired(offset, config.getPageSize());
+    }
 }
