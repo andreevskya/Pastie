@@ -3,7 +3,7 @@ package ru.pastie.om;
 public enum Lexer {
     PLAIN("Plain Text"),
     JAVA("Java"),
-    JAVA_SCRIPT("Java Script"),
+    JAVASCRIPT("Java Script"),
     JSP("JSP"),
     CSS("CSS"),
     HTML("HTML"),

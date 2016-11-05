@@ -1,5 +1,11 @@
 package ru.pastie.controller;
 
+import com.threecrickets.jygments.Jygments;
+import com.threecrickets.jygments.ResolutionException;
+import com.threecrickets.jygments.contrib.HtmlFormatterEx;
+import com.threecrickets.jygments.format.Formatter;
+import java.io.IOException;
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
@@ -71,10 +77,46 @@ public class PastieController {
     @ExceptionHandler(NoSuchPasteException.class)
     public void noPaste() {}
     
+    @ResponseStatus(value=HttpStatus.INTERNAL_SERVER_ERROR)
+    @ExceptionHandler(RuntimeException.class)
+    public void internalServerError() {}
+    
     @RequestMapping(value="/paste/{id}", method=RequestMethod.GET)
     public String viewPaste(@PathVariable("id") String id, Model model, HttpServletRequest request, HttpServletResponse response) {
         Paste paste = getPaste(id, request, response);
         model.addAttribute("paste", paste);
+        
+        HtmlFormatterEx formatter;
+        com.threecrickets.jygments.grammar.Lexer lexer;
+        try {
+            formatter = new HtmlFormatterEx();
+            if(paste.getLexer() != Lexer.PLAIN) {
+                lexer = com.threecrickets.jygments.grammar.Lexer.getByName(paste.getLexer().toString().toLowerCase());
+            } else {
+                lexer = new com.threecrickets.jygments.grammar.Lexer();
+            }
+        } catch(ResolutionException rex) {
+            throw new RuntimeException(rex);
+        }
+        
+        StringWriter sw = new StringWriter();
+        try {
+            formatter.getStyleSheet(sw);
+        } catch(IOException ioex) {
+            throw new RuntimeException(ioex);
+        }
+        sw.flush();
+        
+        model.addAttribute("css", sw.toString());
+        sw = new StringWriter();
+        try {
+            Jygments.highlight(paste.getPaste(), lexer, formatter, sw);
+        } catch(IOException ioex) {
+            throw new RuntimeException(ioex);
+        }
+        sw.flush();
+        
+        model.addAttribute("formattedPaste", sw.toString());
         return "paste";
     }
 

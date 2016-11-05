@@ -10,6 +10,7 @@
         margin-bottom: 10px;
     }
 </style>
+${css}
 </#macro>
 <#macro content>
 <div class="container-fluid">
@@ -20,7 +21,7 @@
                     Posted on <mark>${paste.creationDate?string["dd.MM.yyyy HH:mm:ss"]}</mark> | <code>${paste.lexer.getName()}</code> | Viewed: ${paste.numViews} times | <a href="/pastie/raw/${paste.id}">raw</a>
 		</div>
 	</div>
-	<textarea class="form-control" style="height: 540px;" readonly="true">${paste.paste?html}</textarea>	
+	${formattedPaste}	
 </div>
 </#macro>
 <@display_page/>
