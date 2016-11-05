@@ -1,4 +1,4 @@
-<#include "base.html">
+ <#include "base.html">
 
 <#macro page_title>Pastie | ${ paste.name!'Untitled'?html } </#macro>
 <#macro stylesheet>
@@ -16,7 +16,7 @@
 	<div class="well well-sm"><strong>${(paste.name)!"Untitled paste"?html}</strong></div>
 	
 	<div class="row">
-		<div class="col-md-12">
+		<div class="col-md-12" style="margin-bottom: 5px">
                     Posted on <mark>${paste.creationDate?string["dd.MM.yyyy HH:mm:ss"]}</mark> | <code>${paste.lexer.getName()}</code> | Viewed: ${paste.numViews} times | <a href="/pastie/raw/${paste.id}">raw</a>
 		</div>
 	</div>

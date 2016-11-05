@@ -115,6 +115,7 @@ public class PastieController {
         int pages = service.countPublicAndNotExpiredPages();
         List<Paste> pageContent = service.listPublicAndNotExpired(page);
         model.addAttribute("nav_all");
+        model.addAttribute("currentPage", page);
         model.addAttribute("numPages", pages);
         model.addAttribute("page", pageContent);
         return "all";

@@ -3,7 +3,8 @@
 <#macro page_title>Pastie - All</#macro>
 
 <#macro content>
-<h2>Test stub. Nothing to see here yet. (num pages ${numPages})</h2>
+<#if page?has_content >
+<h2>All pasties (page ${currentPage} from ${numPages})</h2>
 <table class="table">
     <thead>
         <tr>
@@ -28,6 +29,18 @@
         </#list>
     </tbody>
 </table>
+<ul class="pagination">
+<#list 1..numPages as p>
+<#if p == currentPage>
+    <li class="active"><a href="/pastie/all/${p}">${p}</a></li>
+<#else>
+    <li><a href="/pastie/all/${p}">${p}</a></li>
+</#if>
+</#list>
+</ul>
+<#else>
+<h2>Nothing to see here yet.</h>
+</#if>
 </#macro>
 
 <@display_page/>
