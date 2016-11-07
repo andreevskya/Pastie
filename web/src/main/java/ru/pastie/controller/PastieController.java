@@ -3,7 +3,6 @@ package ru.pastie.controller;
 import com.threecrickets.jygments.Jygments;
 import com.threecrickets.jygments.ResolutionException;
 import com.threecrickets.jygments.contrib.HtmlFormatterEx;
-import com.threecrickets.jygments.format.Formatter;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.ArrayList;
@@ -12,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -36,6 +37,8 @@ public class PastieController {
     
     @Autowired
     PasteService service;
+
+    private Logger logger = LogManager.getLogger(PastieController.class);
     
     @RequestMapping(value="/", method=RequestMethod.GET)
     public String index(Model model) {
@@ -79,7 +82,9 @@ public class PastieController {
     
     @ResponseStatus(value=HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(RuntimeException.class)
-    public void internalServerError() {}
+    public void internalServerError(RuntimeException ex) {
+        logger.error(ex);
+    }
     
     @RequestMapping(value="/paste/{id}", method=RequestMethod.GET)
     public String viewPaste(@PathVariable("id") String id, Model model, HttpServletRequest request, HttpServletResponse response) {
