@@ -3,6 +3,7 @@
 <#macro page_title>Pastie - Latest </#macro>
 
 <#macro content>
+<div class="container-fluid">
 <#if latest?size gt 0>
 <h2>Latest ${latest?size} pasties</h2>
 <table class="table">
@@ -32,6 +33,7 @@
 <#else>
 <h2>No pastes yet</h2>
 </#if>
+</div>
 </#macro>
 
 <@display_page/>

@@ -16,7 +16,7 @@
 </#macro>
 <#macro content>
 <div class="container-fluid">
-    <div class="row h100p">
+    <div class="row">
         <form action="/pastie" method="POST" accept-charset="UTF-8">
             <div class="col-md-9 paste-form">
                 <div  class="form-inline">
@@ -80,7 +80,7 @@
                                 <a href="/pastie/paste/${paste.id}">${(paste.name)!"Untitled paste"?html}</a>
                                 <small><i>Posted on ${paste.creationDate?string["dd.MM.yyyy HH:mm:ss"]}</i></small>
                             </h5>
-                            <p><small>${paste.lexer.getName()} Viewed: ${paste.numViews} times</small></p>
+                            <p><small><code>${paste.lexer.getName()}</code> Viewed: ${paste.numViews} times</small></p>
                         </div>
                     </div>
                     </#list>

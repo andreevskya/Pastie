@@ -2,7 +2,12 @@
 
 <#macro page_title>About Pastie</#macro>
 
+<#macro stylesheet>
+<link href="/pastie/static/css/sticky-footer-navbar.css" rel="stylesheet">
+</#macro>
+
 <#macro content>
+<div class="container-fluid">
 <div class="jumbotron">
     <h1>Pastie</h1>
     <p>Text snippet sharing service written for educational purposes.</p>
@@ -17,6 +22,12 @@
     <li><a href="http://springframework.org/">Spring</a></li>
     <li><a href="http://wildfly.org/">WildFly 10</a></li>
 </ul>
+</div>
+<footer class="footer">
+	<div class="container text-center">
+		<p class="text-muted"><a href="https://github.com/andreevskya/Pastie">Github Page</a></p>
+	</div>
+</footer>
 </#macro>
 
 <@display_page/>

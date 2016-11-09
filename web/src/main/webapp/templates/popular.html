@@ -3,6 +3,7 @@
 <#macro page_title>Top Pasties</#macro>
 
 <#macro content>
+<div class="container-fluid">
 <#if top?size gt 0>
 <h2>Top ${top?size} pasties</h2>
 <table class="table">
@@ -32,6 +33,7 @@
 <#else>
 <h2>No statistics yet</h2>
 </#if>
+</div>
 </#macro>
 
 <@display_page/>

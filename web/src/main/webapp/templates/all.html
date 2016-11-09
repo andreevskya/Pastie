@@ -3,6 +3,7 @@
 <#macro page_title>Pastie - All</#macro>
 
 <#macro content>
+<div class="container-fluid">
 <#if page?has_content >
 <h2>All pasties (page ${currentPage} from ${numPages})</h2>
 <table class="table">
@@ -41,6 +42,7 @@
 <#else>
 <h2>Nothing to see here yet.</h>
 </#if>
+</div>
 </#macro>
 
 <@display_page/>
